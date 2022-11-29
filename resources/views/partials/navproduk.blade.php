@@ -1,14 +1,14 @@
-<div id="dashboard">
+<div id="produk">
     <nav class="navbar navbar-expand-lg navbar-light bg-white p-3">
       <div class="container">
-        <a class="navbar-brand" href="#" style="color: #E0C28D;"><b>Amanah Furniture</b></a>
+        <a class="navbar-brand" href="/beranda" style="color: #E0C28D;"><b>Amanah Furniture</b></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link active fw-bold" style="color: #E0C28D;" aria-current="page" href="/beranda">Beranda</a>
+              <a class="nav-link {{ ($active === "beranda")? 'active' : '' }} aria-current="page" href="/beranda">Beranda</a>
             </li>
             {{-- <li class="nav-item">
               <a class="nav-link " href="/produk.html">Produk</a>
@@ -38,5 +38,4 @@
         </div>
       </div>
     </nav>
-        <p class="title-dashboard text-white">Furniture Kelas Dunia <br>Terjangkau Harganya!</p>
   </div>

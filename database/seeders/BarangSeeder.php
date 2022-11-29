@@ -23,7 +23,7 @@ class BarangSeeder extends Seeder
                 'harga'=>'200000',
                 'deskripsi_barang'=>'ini adalah kursi yang sangat enak dan nyaman',
                 'gambar_barang'=>'assets/card-sofapanjang.png',
-                'id_kategori'=>1
+                'kategori_id'=>1
             ],
 
             [
@@ -31,7 +31,7 @@ class BarangSeeder extends Seeder
                 'harga'=>'200000',
                 'deskripsi_barang'=>'ini adalah meja yang besar, kokoh, dan mewah',
                 'gambar_barang'=>'assets/sofa-grey.png',
-                'id_kategori'=>1
+                'kategori_id'=>1
             ],
 
             [
@@ -39,7 +39,7 @@ class BarangSeeder extends Seeder
                 'harga'=>'200000',
                 'deskripsi_barang'=>'ini adalah kursi yang sangat enak dan nyaman',
                 'gambar_barang'=>'assets/card-kursi.png',
-                'id_kategori'=>3
+                'kategori_id'=>3
             ],
 
             [
@@ -47,7 +47,7 @@ class BarangSeeder extends Seeder
                 'harga'=>'200000',
                 'deskripsi_barang'=>'ini adalah meja yang besar, kokoh, dan mewah',
                 'gambar_barang'=>'assets/kursibiru.png',
-                'id_kategori'=>3
+                'kategori_id'=>3
             ],
 
             [
@@ -55,7 +55,7 @@ class BarangSeeder extends Seeder
                 'harga'=>'200000',
                 'deskripsi_barang'=>'ini adalah sofa yang empuk, nyaman, serta mewah',
                 'gambar_barang'=>'assets/kursi-rotan.png',
-                'id_kategori'=>3
+                'kategori_id'=>3
             ],
 
             [
@@ -63,21 +63,21 @@ class BarangSeeder extends Seeder
                 'harga'=>'200000',
                 'deskripsi_barang'=>'ini adalah kasur yang lebar, luas, empuk, serta nyaman untuk tidur',
                 'gambar_barang'=>'assets/kursi-goyang.png',
-                'id_kategori'=>3
+                'kategori_id'=>3
             ],
             [
                 'nama_barang'=>'Meja Mini Lingkaran',
                 'harga'=>'200000',
                 'deskripsi_barang'=>'ini adalah lemari yang besar, kuat, kokoh, serta terlihat mewah',
                 'gambar_barang'=>'assets/card-mejabundar.png',
-                'id_kategori'=>2
+                'kategori_id'=>2
             ],
             [
                 'nama_barang'=>'Meja Segi Lima',
                 'harga'=>'200000',
                 'deskripsi_barang'=>'ini adalah lemari yang besar, kuat, kokoh, serta terlihat mewah',
                 'gambar_barang'=>'assets/meja-segilima.png',
-                'id_kategori'=>2
+                'kategori_id'=>2
             ],
         ])->each(function ($barang){
             DB::table('barangs')->insert($barang);

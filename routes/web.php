@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\Barang;
+use App\Models\Kategori;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SofaController;
 use App\Http\Controllers\BarangController;
 
 /*
@@ -14,8 +17,17 @@ use App\Http\Controllers\BarangController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [BarangController::class,'index']);
 
-Route::get('/home', [BarangController::class, 'index']);
+Route::get('/beranda', [BarangController::class, 'index']);
+
+
+    Route::get('/kategori/{kategori:slug}', function(Kategori $kategori){
+        return view('produk', [
+            'judul'=>$kategori->nama_kategori,
+            'barangs'=>$kategori->barangs,
+            "active" =>'kategori',
+            'kategoris' => Kategori::all(),
+        ]);
+    });
+

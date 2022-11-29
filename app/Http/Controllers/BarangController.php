@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\Preview;
+use App\Models\Kategori;
 use Illuminate\Routing\Controller;
 use App\Http\Requests\StoreBarangRequest;
 use App\Http\Requests\UpdateBarangRequest;
@@ -17,10 +18,12 @@ class BarangController extends Controller
      */
     public function index()
     {
-        return view('home',[
-            'barangs'=>Barang::all(),
-            'previews'=>Preview::all()
-        ]);
+            return view('home',[
+                'barangs'=>Barang::all(),
+                'previews'=>Preview::all(),
+                'kategoris'=>Kategori::all(),
+                "active" =>'home',
+            ]);
     }
 
     /**

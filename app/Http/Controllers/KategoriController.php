@@ -15,7 +15,9 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        //
+        return view('partials.navbar',[
+            'kategoris'=>Kategori::all(),
+        ]);
     }
 
     /**
