@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('produks', function (Blueprint $table) {
             $table->id();
+            $table->double('harga_promo');
+            $table->foreignId('barang_id');
             $table->timestamps();
         });
     }

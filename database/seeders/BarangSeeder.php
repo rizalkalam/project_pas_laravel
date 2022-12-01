@@ -20,63 +20,79 @@ class BarangSeeder extends Seeder
         collect([
             [
                 'nama_barang'=>'Sofa Panjang',
-                'harga'=>'200000',
+                'slug'=>'Sofa Panjang',
+                'harga'=>'2000',
                 'deskripsi_barang'=>'ini adalah kursi yang sangat enak dan nyaman',
                 'gambar_barang'=>'assets/card-sofapanjang.png',
+                'gambar_detail_barang'=>'assets/detail-sofa-panjang.png',
                 'kategori_id'=>1
             ],
 
             [
                 'nama_barang'=>'Sofa Special Grey',
-                'harga'=>'200000',
+                'slug'=>'Sofa Special Grey',
+                'harga'=>'2000',
                 'deskripsi_barang'=>'ini adalah meja yang besar, kokoh, dan mewah',
                 'gambar_barang'=>'assets/sofa-grey.png',
+                'gambar_detail_barang'=>'assets/detail-sofa-special-grey.png',
                 'kategori_id'=>1
             ],
 
             [
                 'nama_barang'=>'Kursi',
-                'harga'=>'200000',
+                'slug'=>'Kursi',
+                'harga'=>'2000',
                 'deskripsi_barang'=>'ini adalah kursi yang sangat enak dan nyaman',
                 'gambar_barang'=>'assets/card-kursi.png',
+                'gambar_detail_barang'=>'assets/card-kursi.png',
                 'kategori_id'=>3
             ],
 
             [
                 'nama_barang'=>'Kursi Blue Ocean',
-                'harga'=>'200000',
+                'slug'=>'Kursi Blue Ocean',
+                'harga'=>'3000',
                 'deskripsi_barang'=>'ini adalah meja yang besar, kokoh, dan mewah',
                 'gambar_barang'=>'assets/kursibiru.png',
+                'gambar_detail_barang'=>'assets/kursibiru.png',
                 'kategori_id'=>3
             ],
 
             [
                 'nama_barang'=>'Kursi Rotan',
-                'harga'=>'200000',
+                'slug'=>'Kursi Rotan',
+                'harga'=>'2000',
                 'deskripsi_barang'=>'ini adalah sofa yang empuk, nyaman, serta mewah',
                 'gambar_barang'=>'assets/kursi-rotan.png',
+                'gambar_detail_barang'=>'assets/kursi-rotan.png',
                 'kategori_id'=>3
             ],
 
             [
                 'nama_barang'=>'Kursi Goyang Kayu Jati',
-                'harga'=>'200000',
+                'slug'=>'Kursi Goyang Kayu Jati',
+                'harga'=>'2000',
                 'deskripsi_barang'=>'ini adalah kasur yang lebar, luas, empuk, serta nyaman untuk tidur',
                 'gambar_barang'=>'assets/kursi-goyang.png',
+                'gambar_detail_barang'=>'assets/kursi-goyang.png',
                 'kategori_id'=>3
             ],
             [
                 'nama_barang'=>'Meja Mini Lingkaran',
-                'harga'=>'200000',
+                'slug'=>'Meja Mini Lingkaran',
+                'harga'=>'2000',
                 'deskripsi_barang'=>'ini adalah lemari yang besar, kuat, kokoh, serta terlihat mewah',
                 'gambar_barang'=>'assets/card-mejabundar.png',
+                'gambar_detail_barang'=>'assets/card-mejabundar.png',
                 'kategori_id'=>2
             ],
             [
                 'nama_barang'=>'Meja Segi Lima',
-                'harga'=>'200000',
+                'slug'=>'Meja Segi Lima',
+                'harga'=>'2000',
                 'deskripsi_barang'=>'ini adalah lemari yang besar, kuat, kokoh, serta terlihat mewah',
                 'gambar_barang'=>'assets/meja-segilima.png',
+                'gambar_detail_barang'=>'assets/meja-segilima.png',
                 'kategori_id'=>2
             ],
         ])->each(function ($barang){

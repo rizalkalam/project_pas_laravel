@@ -28,31 +28,152 @@
   <div class="row row-cols-auto">
     @foreach ($barangs as $barang)    
     <div class="col-md-3">
-      <div class="card produk mb-4">
+      <a href="/barang/{{ $barang->slug }}" style="text-decoration: none; color:black">
+        <div class="card produk mb-4">
           <img src="{{ $barang->gambar_barang }}" class="card-img-top">
           <div class="nama-produk">
             <p>{{ $barang->nama_barang }}</p>
-          </div>
+          </a>    
+            </div>
+        </div>
       </div>
-    </div>
     @endforeach
   </div>
 </div>
 <!-- akhir produk -->
 
 
-<!-- promo -->
-{{-- <div class="diskon pb-5">
-  <img class="img-promo" src="./assets/sofa_medium.png" alt="">
-  <div class="jumbotron jumbotron-fluid promo">
-    <div class="container">
-        <p class="lead pt-5 fw-bold">Promo Akhir Tahun, Diskon 20%</p>
-        <h3 class="display-6 fw-bold"><b>Sofa Medium Premium</b></h3>
-        <p class="lead pt-4 pb-5 fw-bold"><del style="color: grey;">Rp. 4.999.999</del><br>Rp. 3.999.999</p>
-        <button type="button" class="btn mb-4 fw-bold">Order Sekarang</button>
+
+@auth
+<h2 class="text-center m-5" style="color: #E0C28D;"><b>Testimoni</b></h2>
+   
+<div class="container">
+
+
+<div class="row row-cols-auto">
+  @foreach ($testimonis as $item)
+  <div class="col-md-2">
+    <div class="card" style="width: 12rem;">
+      <img src="/assets/testi-cewek.png" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{ $item->user->username }}</h5>
+        <p class="card-text">{{ $item->komentar }}</p>
+      </div>
+      @if ($item->user->id == auth()->user()->id)
+      <div class="d-grid gap-1 mt-4 d-md-flex justify-content-center">
+        <button class="btn w-auto btn-primary" type="button" data-bs-target="#modalDetail" data-bs-toggle="modal">Edit</button>
+        <form action="/beranda/delete/{{ $item->id }}" method="post">
+          @method('delete')
+          @csrf
+          <button class="btn btn-sm btn-primary w-auto">Delete</button>
+        </form>
+      </div>
+      @else
+          
+      @endif
+    </div>
+  </div> 
+  @endforeach
+</div>
+
+
+  <!-- Button trigger modal -->
+<a type="button" class="btn mt-2 w-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Tambah Ulasan
+</a>
+@else
+<!-- testi -->
+<h2 class="text-center m-5" style="color: #E0C28D;"><b>Testimoni</b></h2>
+
+<div class="container">
+  
+  <div class="row row-cols-auto">
+    @foreach ($testimonis as $item)
+    <div class="col-md-2">
+      <div class="card" style="width: 12rem;">
+        <img src="/assets/testi-cewek.png" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{ $item->user->username }}</h5>
+          <p class="card-text">{{ $item->komentar }}</p>
+        </div>
+      </div>
+    </div> 
+    @endforeach
+  </div>
+</div>
+  
+  
+  
+  
+
+@endauth
+
+
+  
+<!-- Modal -->
+@auth
+    
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Ulasan</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/add">
+          @csrf
+          <div class="mb-3">
+            <label for="user_id" class="form-label">Id User</label>
+            <input required id="useri_id" name="user_id" class="form-control" id="exampleFormControlTextarea1" rows="3" value="{{ auth()->user()->id }}" readonly>
+          </div>
+          <div class="mb-3">
+            <label for="komentar" class="form-label">Deskripsi</label>
+            <textarea required id="komentar" name="komentar" class="form-control" id="exampleFormControlTextarea1" rows="3" ></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn mt-3 w-auto" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn mt-3 w-auto">Submit</button>
+        </form>
+      </div>
     </div>
   </div>
-</div> --}}
-<!-- akhir promo -->
+</div>
 
+<!-- Modal Detail -->
+<div class="modal fade" id="modalDetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Ulasan</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        <form method="POST" action="/beranda/update/{{ $item->id }}">
+          @csrf
+          <div class="mb-3">
+            <label for="user_id" class="form-label">Id User</label>
+            <input required id="useri_id" name="user_id" class="form-control" id="exampleFormControlTextarea1" rows="3" value="{{ auth()->user()->id }}" readonly>
+          </div>
+          <div class="mb-3">
+            <label for="komentar" class="form-label">Deskripsi</label>
+            <textarea required id="komentar" name="komentar" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn mt-3 w-auto">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+@else
+
+@endauth
+</div>
+<!-- akhir testi -->
 @endsection

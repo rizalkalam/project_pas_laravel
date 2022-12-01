@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Promo;
 use App\Models\Barang;
 use App\Models\Kategori;
 use Illuminate\Database\Eloquent\Model;
@@ -20,5 +21,10 @@ class Barang extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    public function promo()
+    {
+        return $this->belongsTo(Promo::class);
     }
 }

@@ -76,10 +76,6 @@ nav {
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.135);
 }
 
-.card {
-    border: none;
-}
-
 .nama-produk {
     position: relative;
     z-index: 2;
@@ -89,6 +85,7 @@ nav {
 
 .produk {
     transition: transform 0.5s ease-in;
+    border: none;
 }
 
 .produk:hover {
@@ -128,16 +125,51 @@ nav {
     background-color: #d0b07a;
 }
 
-svg {
+.sosmed {
     margin: 10px;
     transition: transform 0.5s ease-in;
 }
 
-svg:hover {
+.sosmed:hover {
     transform: translateY(-7px);
     cursor: pointer;
 }
 
 footer {
     margin-bottom: -15px;
+}
+
+.back {
+    background-color: #d0b07a;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    margin: 30px;
+    border: none;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.144);
+    transition: transform 0.5s ease-in;
+}
+
+.back:hover {
+    transform: translateX(-7px);
+    cursor: pointer;
+}
+
+.icon-back {
+    color: white;
+    margin: 10px;
+}
+
+button {
+    border: none;
+}
+
+.detail-barang {
+    display: flex;
+}
+
+.gambar-barang {
+    width: 400px;
+    height: auto;
+    margin-left: 250px;
 }

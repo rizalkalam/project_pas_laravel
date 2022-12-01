@@ -25,15 +25,22 @@
                 <li><a class="dropdown-item" href="/kursi/all">Kursi</a></li> --}}
               </ul>
             </li>
+            
+            @auth
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Lainnya
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Welcome {{ auth()->user()->username }}
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <li><a class="dropdown-item" href="#">Log In</a></li>
-                <li><a class="dropdown-item" href="/login.html">Log Out</a></li>
+                <li><form action="/logout" method="POST">
+                  @csrf
+                  <button type="submit" class="dropdown-item "><i class="bi bi-box-arrow-in-right"></i> Logout</button>
+                </form></li>    
+                @else
+                <li><a class="dropdown-item nav-link {{ ($active === "login")? 'active' : '' }}" href="/login">Log In</a></li>
               </ul>
             </li>
+            @endauth
           </ul>
         </div>
       </div>

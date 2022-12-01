@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Barang;
 use App\Models\Preview;
 use App\Models\Kategori;
+use App\Models\Testimoni;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Http\Requests\StoreBarangRequest;
 use App\Http\Requests\UpdateBarangRequest;
@@ -22,6 +25,7 @@ class BarangController extends Controller
                 'barangs'=>Barang::all(),
                 'previews'=>Preview::all(),
                 'kategoris'=>Kategori::all(),
+                'testimonis'=>Testimoni::all(),
                 "active" =>'home',
             ]);
     }
@@ -42,9 +46,15 @@ class BarangController extends Controller
      * @param  \App\Http\Requests\StoreBarangRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreBarangRequest $request)
+    public function store(Request $request,)
     {
-        //
+        $validateData = $request->validate([
+            'user_id'=>'required',
+            'komentar'=>'required'
+        ]);
+
+        Testimoni::create($validateData);
+        return redirect('/beranda')->with('success', 'komentar berhasil ditambahkan');
     }
 
     /**
@@ -55,8 +65,10 @@ class BarangController extends Controller
      */
     public function show(Barang $barang)
     {
-        return view('publisher.detail', [
-            'publisher'=>$publishers
+        return view('detail', [
+            'barang'=>$barang,
+            'kategoris'=>Kategori::all(),
+            "active" =>'barang',
         ]);  
     }
 
@@ -78,9 +90,14 @@ class BarangController extends Controller
      * @param  \App\Models\Barang  $barang
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBarangRequest $request, Barang $barang)
+    public function update(Request $request, Testimoni $testimoni)
     {
-        //
+        $validateData = $request->validate([
+            'user_id'=>'required',
+            'komentar'=>'required',
+        ]);
+        Testimoni::where('id', $testimoni->id)->update($validateData);
+        return redirect('/beranda')->with('success', 'Book has been updated !');
     }
 
     /**
@@ -89,8 +106,9 @@ class BarangController extends Controller
      * @param  \App\Models\Barang  $barang
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Barang $barang)
-    {
-        //
+    public function destroy(Testimoni $testimoni)
+    {   
+        Testimoni::destroy($testimoni->id);
+        return redirect('/beranda')->with('success', 'data has been deleted !');
     }
 }

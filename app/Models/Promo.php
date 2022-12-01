@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
-use App\Models\Promo;
 use App\Models\Barang;
+use App\Models\Kategori;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Kategori extends Model
+class Promo extends Model
 {
     use HasFactory;
-
     protected $guarded = ['id'];
 
     public function barangs()
@@ -18,9 +17,8 @@ class Kategori extends Model
         return $this->hasMany(Barang::class);
     }
 
-    public function promos()
+    public function kategori()
     {
-        return $this->hasMany(Promo::class);
+        return $this->belongsTo(Kategori::class);
     }
-
 }

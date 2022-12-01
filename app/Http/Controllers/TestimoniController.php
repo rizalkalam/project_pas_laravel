@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Barang;
+use App\Models\Preview;
+use App\Models\Kategori;
 use App\Models\Testimoni;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTestimoniRequest;
 use App\Http\Requests\UpdateTestimoniRequest;
 
@@ -13,9 +18,15 @@ class TestimoniController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user)
     {
-        //
+        return view('home', [
+            'username'=>$user->username,
+            'previews'=>Preview::all(),
+            'barangs'=>Barang::all(),
+            'kategoris'=>Kategori::all(),
+            'active'=>'home'
+        ]);
     }
 
     /**

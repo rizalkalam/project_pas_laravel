@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Testimoni;
 use App\Models\Transaksi;
 use Illuminate\Database\Seeder;
+use Database\Seeders\PromoSeeder;
 use Database\Seeders\BarangSeeder;
 use Database\Seeders\PreviewSeeder;
 use Database\Seeders\KategoriSeeder;
@@ -35,7 +36,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             BarangSeeder::class,
             KategoriSeeder::class,
-            PreviewSeeder::class
+            PreviewSeeder::class,
+            PromoSeeder::class
         ]);
     }
 }
