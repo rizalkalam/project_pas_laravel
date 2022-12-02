@@ -10,7 +10,7 @@
 
 <div class="container mt-5 text-center">
     <div class="row row-cols-auto">
-        @foreach ($previews as $preview)    
+        @foreach ($items as $preview)    
         <div class="col-md-3">
             <div class="card gambar">
                 <img src="{{ $preview->gambar_barang }}" class="card-img-top">

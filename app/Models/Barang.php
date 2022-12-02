@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Promo;
 use App\Models\Barang;
+use App\Models\Preview;
 use App\Models\Kategori;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,5 +27,10 @@ class Barang extends Model
     public function promo()
     {
         return $this->belongsTo(Promo::class);
+    }
+
+    public function preveiw()
+    {
+        return $this->belongsTo(Preview::class);
     }
 }

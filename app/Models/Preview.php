@@ -9,8 +9,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Preview extends Model
 {
     use HasFactory;
-    public function barang()
+    protected $guarded = ['id'];
+
+    public function items()
     {
-        return $this->belongsTo(Barang::class);
+        return $this->hasMany(Barang::class);
     }
 }

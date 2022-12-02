@@ -19,11 +19,11 @@ class BarangController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Preview $preview)
     {
             return view('home',[
                 'barangs'=>Barang::all(),
-                'previews'=>Preview::all(),
+                'items'=>$preview->items,
                 'kategoris'=>Kategori::all(),
                 'testimonis'=>Testimoni::all(),
                 "active" =>'home',

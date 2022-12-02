@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('previews', function (Blueprint $table) {
             $table->id();
-            $table->string('gambar_barang');
+            $table->foreignId('barang_id');
             $table->timestamps();
         });
     }
