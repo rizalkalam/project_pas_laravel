@@ -28,7 +28,6 @@ Route::post('/add', [BarangController::class, 'store']);
 Route::delete('/beranda/delete/{testimoni}', [BarangController::class, 'destroy']);
 Route::post('/beranda/update/{testimoni}', [BarangController::class, 'update']);
 
-
 Route::get('/kategori/{kategori:slug}', function(Kategori $kategori){
     return view('produk', [
         'judul'=>$kategori->nama_kategori,

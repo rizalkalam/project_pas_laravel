@@ -29,7 +29,7 @@
       <div class="container">
           <p class="lead pt-5 fw-bold">{{ $promo->judul_promo }}</p>
           <h3 class="display-6 fw-bold"><b>{{ $promo->nama_barang }}</b></h3>
-          <p class="lead pt-4 pb-5 fw-bold"><del style="color: grey;">Rp. {{ $promo->harga }}</del><br>Rp. {{ $promo->harga_promo }}</p>
+          <p class="lead pt-4 pb-5 fw-bold"><del style="color: grey;">Rp. {{ $promo->harga }}</del><br>Rp. {{ $promo->diskon }}</p>
           <button type="button" class="btn mb-4 fw-bold">Order Sekarang</button>
         </div>
     </div>

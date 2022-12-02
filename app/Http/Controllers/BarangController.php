@@ -50,7 +50,8 @@ class BarangController extends Controller
     {
         $validateData = $request->validate([
             'user_id'=>'required',
-            'komentar'=>'required'
+            'komentar'=>'required',
+            'tanggal'=>'required'
         ]);
 
         Testimoni::create($validateData);
@@ -95,6 +96,7 @@ class BarangController extends Controller
         $validateData = $request->validate([
             'user_id'=>'required',
             'komentar'=>'required',
+            'tanggal'=>'required',
         ]);
         Testimoni::where('id', $testimoni->id)->update($validateData);
         return redirect('/beranda')->with('success', 'Book has been updated !');

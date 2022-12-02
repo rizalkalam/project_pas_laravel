@@ -58,6 +58,7 @@
       <div class="card-body">
         <h5 class="card-title">{{ $item->user->username }}</h5>
         <p class="card-text">{{ $item->komentar }}</p>
+        <p class="card-text">{{ $item->tanggal }}</p>
       </div>
       @if ($item->user->id == auth()->user()->id)
       <div class="d-grid gap-1 mt-4 d-md-flex justify-content-center">
@@ -95,6 +96,7 @@
         <div class="card-body">
           <h5 class="card-title">{{ $item->user->username }}</h5>
           <p class="card-text">{{ $item->komentar }}</p>
+          <p class="card-text">{{ $item->tanggal }}</p>
         </div>
       </div>
     </div> 
@@ -130,6 +132,10 @@
           <div class="mb-3">
             <label for="komentar" class="form-label">Deskripsi</label>
             <textarea required id="komentar" name="komentar" class="form-control" id="exampleFormControlTextarea1" rows="3" ></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="tanggal" class="form-label">Tanggal</label>
+            <input type="date" required id="tanggal" name="tanggal" class="form-control" id="exampleFormControlTextarea1" rows="3">
           </div>
         </div>
         <div class="modal-footer">

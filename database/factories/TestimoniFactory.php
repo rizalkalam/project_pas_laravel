@@ -21,6 +21,7 @@ class TestimoniFactory extends Factory
         return [
             'user_id'=>mt_rand(1,5),
             'komentar'=>fake()->sentence(mt_rand(3,5)),
+            'tanggal'=>fake()->date(),
         ];
     }
 }

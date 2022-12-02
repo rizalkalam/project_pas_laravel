@@ -21,7 +21,7 @@ class PromoSeeder extends Seeder
                 'nama_barang'=>'Sofa Medium Premium',
                 'slug'=>'Sofa Medium Premium',
                 'harga'=>'4.999',
-                'diskon'=> '0.2',
+                'diskon'=> '3.999',
                 'deskripsi_barang'=>'ini adalah kursi yang sangat enak dan nyaman',
                 'gambar_barang'=>'assets/sofa_medium.png',
                 'gambar_detail_barang'=>'assets/sofa-medium.png',
