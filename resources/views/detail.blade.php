@@ -16,7 +16,7 @@
           <h2 class="ms-5 mt-5"><b>{{ $barang->nama_barang }}</b></h2>
           <p class="w-50 ms-5 mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit hic ex iste, obcaecati voluptates quis reprehenderit minima. Eaque, quas sapiente?</p>
           <p class="w-50 ms-5 pb-5">Bonus 2 bantal besar + 4 bantal kecil</p>
-          <p class="lead pt-4 pb-5 fw-bold ms-5 mt-5">{{ $barang->harga }}</p>
+          <p class="lead pt-4 pb-5 fw-bold ms-5 mt-5">@currency($barang->harga)</p>
           <button type="button" class="btn tombol-order ms-5 w-auto" data-bs-dismiss="modal">Order Sekarang</button>
         </div>
       </div>
