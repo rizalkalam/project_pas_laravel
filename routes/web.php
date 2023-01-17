@@ -49,3 +49,9 @@ Route::post('/register', [RegisterController::class, 'store']);
 
 // Route::get('/',[TestimoniController::class, 'index']);
 // Route::get('/beranda',[TestimoniController::class, 'index']);
+
+
+// DASHBOARD
+Route::get('/dashboard', function(){
+    return view('dashboard.home');
+});
