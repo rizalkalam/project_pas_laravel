@@ -1,4 +1,3 @@
-<div id="dashboard">
     <nav class="navbar navbar-expand-lg navbar-light bg-white p-3">
       <div class="container">
         <a class="navbar-brand" href="#" style="color: #E0C28D;"><b>Amanah Furniture</b></a>
@@ -45,5 +44,3 @@
         </div>
       </div>
     </nav>
-        <p class="title-dashboard text-white">Furniture Kelas Dunia <br>Terjangkau Harganya!</p>
-  </div>
