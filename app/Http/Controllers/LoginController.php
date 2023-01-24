@@ -43,4 +43,14 @@ class LoginController extends Controller
      
         return redirect('/beranda');
     }
+
+    protected function authenticated(Request $request, $user)
+    {
+        // dd($user->hasRole('admin'));
+        if ($user->hasRole('admin')) {
+            return redirect()->route('dashboard');
+        }
+
+        return redirect()->route('home');
+    }
 }

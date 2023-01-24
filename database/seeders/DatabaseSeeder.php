@@ -8,6 +8,8 @@ use App\Models\Order;
 use App\Models\Testimoni;
 use App\Models\Transaksi;
 use Illuminate\Database\Seeder;
+use Database\Seeders\RoleSeeder;
+use Database\Seeders\UserSeeder;
 use Database\Seeders\PromoSeeder;
 use Database\Seeders\BarangSeeder;
 use Database\Seeders\PreviewSeeder;
@@ -29,7 +31,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         // Testimoni::factory(4)->create();
-        User::factory(5)->create();
+        // User::factory(5)->create();
         Testimoni::factory(5)->create();
         Transaksi::factory(5)->create();
         Order::factory(5)->create();
@@ -37,7 +39,9 @@ class DatabaseSeeder extends Seeder
             BarangSeeder::class,
             KategoriSeeder::class,
             PreviewSeeder::class,
-            PromoSeeder::class
+            PromoSeeder::class,
+            RoleSeeder::class,
+            UserSeeder::class
         ]);
     }
 }
