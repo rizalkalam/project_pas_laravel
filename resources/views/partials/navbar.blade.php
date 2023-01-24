@@ -1,4 +1,3 @@
-<div id="dashboard">
     <nav class="navbar navbar-expand-lg navbar-light bg-white p-3">
       <div class="container">
         <a class="navbar-brand" href="#" style="color: #E0C28D;"><b>Amanah Furniture</b></a>
@@ -10,9 +9,9 @@
             <li class="nav-item">
               <a class="nav-link active fw-bold" style="color: #E0C28D;" aria-current="page" href="/beranda">Beranda</a>
             </li>
-            {{-- <li class="nav-item">
+            <li class="nav-item">
               <a class="nav-link " href="/produk.html">Produk</a>
-            </li> --}}
+            </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Kategori
@@ -45,5 +44,3 @@
         </div>
       </div>
     </nav>
-        <p class="title-dashboard text-white">Furniture Kelas Dunia <br>Terjangkau Harganya!</p>
-  </div>
