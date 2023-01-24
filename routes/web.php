@@ -54,4 +54,4 @@ Route::post('/register', [RegisterController::class, 'store']);
 // DASHBOARD
 Route::middleware('role:admin')->get('/dashboard', function(){
     return view('dashboard.home');
-});
+})->name('dashboard');

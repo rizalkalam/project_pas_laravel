@@ -31,9 +31,22 @@
                 Welcome {{ auth()->user()->username }}
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+               @if (Auth::user()->hasRole('admin'))
+               <li>
+                <a class="dropdown-item nav-link" href="dashboard"> Dashboard</a>
+               </li>
+               @else
+               <li>
+                <a class="dropdown-item nav-link" href="dashboard"> My Profile</a>
+               </li>
+               @endif
+
+               
+                
                 <li><form action="/logout" method="POST">
                   @csrf
-                  <button type="submit" class="dropdown-item "><i class="bi bi-box-arrow-in-right"></i> Logout</button>
+                  <button type="submit" class="dropdown-item nav-link">Logout</button>
                 </form></li>    
                 @else
                 <li><a class="dropdown-item nav-link {{ ($active === "login")? 'active' : '' }}" href="/login">Log In</a></li>
