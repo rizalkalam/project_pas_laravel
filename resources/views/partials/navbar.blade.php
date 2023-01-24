@@ -38,7 +38,7 @@
                </li>
                @else
                <li>
-                <a class="dropdown-item nav-link" href="dashboard"> My Profile</a>
+                <a class="dropdown-item nav-link" href="profile"> My Profile</a>
                </li>
                @endif
 

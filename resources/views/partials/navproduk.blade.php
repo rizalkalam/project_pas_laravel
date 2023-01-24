@@ -31,6 +31,17 @@
                 Welcome {{ auth()->user()->username }}
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                @if (Auth::user()->hasRole('admin'))
+                <li>
+                  <a class="dropdown-item nav-link" href="dashboard"> Dashboard</a>
+                </li>
+                @else
+                <li>
+                  <a class="dropdown-item nav-link" href="profile"> My Profile</a>
+                </li>
+                @endif
+
                 <li><form action="/logout" method="POST">
                   @csrf
                   <button type="submit" class="dropdown-item "><i class="bi bi-box-arrow-in-right"></i> Logout</button>
