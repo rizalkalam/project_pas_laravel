@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\client\AuthController;
+use App\Http\Controllers\client\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,9 +32,16 @@ Route::post('/register', [\App\Http\Controllers\client\AuthController::class, 'r
 Route::post('/login', [\App\Http\Controllers\client\AuthController::class, 'login']);
 
 // setelah daftar dan masuk bisa akses ini
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function(){
+    Route::get('/user', function (Request $request){
+        return $request->user();
+    });
+    Route::resource('products', ProductController::class);
 });
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [\App\Http\Controllers\client\AuthController::class, 'logout']);
-});
+
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+// Route::middleware('auth:sanctum')->group(function () {
+//     Route::post('/logout', [\App\Http\Controllers\client\AuthController::class, 'logout']);
+// });
