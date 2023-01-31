@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +17,4 @@ use App\Http\Controllers\CartController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::get('keranjang',[CartController::class, 'cartList']);
-Route::post('tambah',[CartController::class, 'cartAdd']);
 
