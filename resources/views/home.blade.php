@@ -35,7 +35,13 @@
         <p class="lead pt-5 fw-bold">Diskon Akhir Tahun, Diskon 20%</p>
         <h3 class="display-6 fw-bold"><b>Sofa Medium Premium</b></h3>
         <p class="lead pt-4 pb-5 fw-bold"><del style="color: grey;">Rp. 4.999.999</del><br>Rp. 3.999.999</p>
-        <button type="button" class="btn mb-4 fw-bold">Order Sekarang</button>
+        @auth  
+          <button type="button" class="btn mb-4 fw-bold">Order Sekarang</button>
+        @else
+          <a href="/login">
+            <button type="button" class="btn mb-4 fw-bold">Login dulu!</button>
+          </a>
+        @endauth
     </div>
   </div>
 </div>
@@ -93,7 +99,7 @@
             <p class="fw-bold">{{ $barang->nama_barang }}</p>
           </div>
           <div class="harga">
-            <p>Rp. 500.000</p>
+            <p>@currency($barang->harga)</p>
           </div>
         </a>    
       </div>
