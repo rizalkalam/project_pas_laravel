@@ -1,8 +1,10 @@
 <?php
 
+use App\Models\Cart;
 use App\Models\Barang;
 use App\Models\Kategori;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\SofaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BarangController;
@@ -28,6 +30,14 @@ Route::post('/add', [BarangController::class, 'store']);
 Route::delete('/beranda/delete/{testimoni}', [BarangController::class, 'destroy']);
 Route::post('/beranda/update/{testimoni}', [BarangController::class, 'update']);
 
+Route::get('/produk', function(Kategori $kategori){
+    return view('produk_all',[
+        // 'barangs'=>Barang::all()
+        "active" =>'kategori',
+        'kategoris' => Kategori::all(),
+    ]);
+});
+
 Route::get('/kategori/{kategori:slug}', function(Kategori $kategori){
     return view('produk', [
         'judul'=>$kategori->nama_kategori,
@@ -51,7 +61,22 @@ Route::post('/register', [RegisterController::class, 'store']);
 // Route::get('/beranda',[TestimoniController::class, 'index']);
 
 
+// CART
+Route::group(["prefix"=>"keranjang"], function(){
+    Route::get('/', function(){
+        return view('keranjang',[
+            "active" =>'kategori',
+            'kategoris' => Kategori::all(),
+            'keranjang'=> Cart::all()
+        ]);
+    })->name('keranjang');
+    Route::post('/tambah',[CartController::class, 'addCart']);
+    Route::delete('/hapus/{cart}',[CartController::class, 'deleteCart']);
+});
+
 // DASHBOARD
-Route::middleware('role:admin')->get('/dashboard', function(){
-    return view('dashboard.home');
-})->name('dashboard');
+Route::group(["prefix"=>"dashboard"], function(){
+    Route::middleware('role:admin')->get('/home', function(){
+        return view('dashboard.home');
+    })->name('dashboard');
+});

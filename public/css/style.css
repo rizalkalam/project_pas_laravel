@@ -196,3 +196,19 @@ button {
     height: auto;
     margin-left: 250px;
 }
+
+/* keranjang */
+
+.total{
+    float: right;
+    text-align: right;
+    margin-right: -15px;
+}
+
+.tombol-hapus{
+    float: right;
+}
+
+.tombol-checkout{
+    float: right;
+}
