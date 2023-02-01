@@ -17,4 +17,23 @@ class ProductController extends Controller
             "data" => $products
         ]);
     }
+
+    public function detail($id)
+    {
+        $product = Barang::whereId($id)->first();
+        if ($product) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Detail Produk!',
+                'data'    => $product
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Produk Tidak Ditemukan!',
+                'data'    => ''
+            ], 401);
+        }
+    }
 }
