@@ -70,8 +70,10 @@ Route::group(["prefix"=>"keranjang"], function(){
             'keranjang'=> Cart::all()
         ]);
     })->name('keranjang');
-    Route::post('/tambah',[CartController::class, 'addCart']);
+    Route::post('/tambah/{id}',[CartController::class, 'addCart']);
     Route::delete('/hapus/{cart}',[CartController::class, 'deleteCart']);
+
+    // Route::get():
 });
 
 // DASHBOARD

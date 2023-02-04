@@ -14,6 +14,8 @@
     @include('partials.navbar')
     </div>
     
+   
+
     @yield('content')
 
     @if (Route::is('keranjang'))

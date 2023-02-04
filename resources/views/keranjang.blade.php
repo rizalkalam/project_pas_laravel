@@ -4,20 +4,31 @@
     <div class="container">
       <div class="row w-100">
           <div class="col-lg-12 col-md-12 col-12">
-                  <h5 class="font-weight-bold mt-3 mb-4"><b>99</b> <span class="text-secondary">Barang di keranjangmu</span></h5>
+                  <h5 class="font-weight-bold mt-3 mb-4"><b>{{ count($keranjang) }}</b> <span class="text-secondary">Barang di keranjangmu</span></h5>
               <table id="shoppingCart" class="table table-condensed table-responsive">
                   <thead>
                       <tr>
-                          <th style="width:60%">Produk</th>
+                          <th style="width:8%">No</th>
+                          <th style="width:55%">Produk</th>
                           <th style="width:12%">Harga</th>
                           <th style="width:10%">Jumlah</th>
                           <th style="width:14%"></th>
                       </tr>
                   </thead>
                   <tbody>
+                    @php
+                        $no = 1;
+                        $grandtotal = 0;
+                    @endphp
+
                     @foreach ($keranjang as $item)
                     @if ($item->user->id == auth()->user()->id)    
+
+                    @php
+                        $subtotal= $item["harga"] * $item["jumlah"]
+                    @endphp
                     <tr>
+                        <td>{{ $no++ }}</td>
                         <td data-th="Product">
                             <div class="row">
                                 <div class="col-md-3">
@@ -49,12 +60,17 @@
                     @else
           
                     @endif
+
+                    @php
+                        $grandtotal+= $subtotal;
+                    @endphp
+
                     @endforeach
                   </tbody>
               </table>
               <div class="text-right align-content-md-end total mt-2">
                   <h4 class="text-secondary">Total:</h4>
-                  <h2>Rp. 4.300.000</h2>
+                  <h2>@currency($grandtotal)</h2>
               </div>
           </div>
       </div>
