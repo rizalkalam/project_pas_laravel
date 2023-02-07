@@ -11,14 +11,18 @@
       </div>
       <!-- akhir tombol back -->
   
+      @if (Session::has('error'))
+        <p class="text-center">{{ Session::get('error') }}</p>
+      @endif
+
       <div class="detail-barang">
-        <img class="gambar-barang mt-5" src="../{{ $barang->gambar_detail_barang }}" alt="" />
+        <img class="gambar-barang mt-5" src="{{ asset('images/'.$barang->gambar_detail_barang) }}" alt="" />
         <div class="deskripsi-barang">
           <h2 class="ms-5 mt-5"><b>{{ $barang->nama_barang }}</b></h2>
-          <p class="w-50 ms-5 mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit hic ex iste, obcaecati voluptates quis reprehenderit minima. Eaque, quas sapiente?</p>
+          <p class="w-50 ms-5 mt-3">{{ $barang->deskripsi_barang }}</p>
           <p class="w-50 ms-5 pb-5">Bonus 2 bantal besar + 4 bantal kecil</p>
           <p class="lead pt-4 pb-5 fw-bold ms-5 mt-5">@currency($barang->harga)</p>
-          <form action="/keranjang/tambah" method="POST">
+          <form action="/keranjang/tambah/{{ $barang->id }}" method="POST">
             @csrf
             <input type="hidden"  id="barang_id" name="barang_id" value="{{ $barang->id }}">
             <input type="hidden" id="user_id" name="user_id" value="{{ auth()->user()->id }}">
@@ -33,7 +37,7 @@
         </div>
         @else
         <div class="detail-barang">
-          <img class="gambar-barang mt-5" src="../{{ $barang->gambar_detail_barang }}" alt="" />
+          <img class="gambar-barang mt-5" src="{{ asset('images/'.$barang->gambar_detail_barang) }}" alt="" />
           <div class="deskripsi-barang">
             <h2 class="ms-5 mt-5"><b>{{ $barang->nama_barang }}</b></h2>
             <p class="w-50 ms-5 mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit hic ex iste, obcaecati voluptates quis reprehenderit minima. Eaque, quas sapiente?</p>

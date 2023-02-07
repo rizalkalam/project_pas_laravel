@@ -94,7 +94,7 @@
     <div class="col-md-3">
       <div class="card produk">
         <a href="/barang/{{ $barang->slug }}" style="text-decoration: none; color:black">
-            <img src="{{ $barang->gambar_barang }}" class="card-img-top">
+            <img src="{{ asset('images/'.$barang->gambar_barang) }}" class="card-img-top">
           <div class="nama-produk">
             <p class="fw-bold">{{ $barang->nama_barang }}</p>
           </div>
@@ -113,8 +113,45 @@
 
 @auth
 <h2 class="text-center m-5" style="color: #E0C28D;"><b>Testimoni</b></h2>
+<section class="home-testimonial-bottom">
+  <div class="container testimonial-inner">
+      <div class="row d-flex justify-content-center">
+        @foreach ($testimonis as $item)    
+        <div class="col-md-4 style-3 border-1">
+          <div class="tour-item">
+              <div class="tour-desc bg-white shadow rounded-5">
+                  <div class="tour-text color-grey-2 text-center">{{ $item->komentar }}</div>
+                  <div class="d-flex justify-content-center pt-3 pb-2"><img class="tm-people" src="/assets/test-cowok.png" alt=""></div>
+                  <div class="d-flex justify-content-center">{{ $item->user->username }}</div>
+                  <div class="link-name d-flex justify-content-center mt-2">{{ $item->tanggal }}</div>
+                  @if ($item->user->id == auth()->user()->id)
+                    <div class="d-grid gap-3 mb-3 d-md-flex justify-content-center">
+                      <button type="button" class="btn mt-2 w-auto bg-info" data-bs-toggle="modal" data-bs-target="#modalDetail">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                          <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                        </svg>
+                      </button>
+                      <form action="/beranda/delete/{{ $item->id }}" method="post">
+                        @method('delete')
+                        @csrf
+                        <button type="submit" class="btn mt-2 w-auto bg-danger"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                          <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+                        </svg></button>
+                      </form>
+                    </div>
+                  @else
+                        
+                  @endif
+              </div>
+            </div>
+          </div>
+          @endforeach
+        </div>
+      </div> 
+    </div>
+  </section>
    
-<div class="container">
+{{-- <div class="container">
 <div class="row">
   @foreach ($testimonis as $item)
   <div class="col">
@@ -127,7 +164,6 @@
       </div>
       @if ($item->user->id == auth()->user()->id)
       <div class="d-grid gap-3 mb-3 d-md-flex justify-content-center">
-        {{-- <button class="btn w-auto btn-primary" type="button" data-bs-target="#modalDetail" data-bs-toggle="modal">Edit</button> --}}
         <button type="button" class="btn mt-2 w-auto bg-info" data-bs-toggle="modal" data-bs-target="#modalDetail">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
             <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
@@ -136,7 +172,6 @@
         <form action="/beranda/delete/{{ $item->id }}" method="post">
           @method('delete')
           @csrf
-          {{-- <button class="btn btn-sm btn-primary w-auto">Delete</button> --}}
           <button type="submit" class="btn mt-2 w-auto bg-danger"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
             <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
           </svg></button>
@@ -148,18 +183,39 @@
     </div>
   </div> 
   @endforeach
-</div>
+</div> --}}
 
 
   <!-- Button trigger modal -->
-<a type="button" class="btn mt-2 w-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<a type="button" class="btn w-auto ms-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
   Tambah Ulasan
 </a>
 @else
 <!-- testi -->
 <h2 class="text-center m-5" style="color: #E0C28D;"><b>Testimoni</b></h2>
+<section class="home-testimonial-bottom">
+    <div class="container testimonial-inner">
+        <div class="row d-flex justify-content-center">
+          @foreach ($testimonis as $testi)    
+          <div class="col-md-4 style-3 border-1">
+            <div class="tour-item">
+                <div class="tour-desc bg-white shadow rounded-5">
+                    <div class="tour-text color-grey-2 text-center">{{ $testi->komentar }}</div>
+                    <div class="d-flex justify-content-center pt-3 pb-2"><img class="tm-people" src="/assets/test-cowok.png" alt=""></div>
+                    <div class="d-flex justify-content-center">{{ $testi->user->username }}</div>
+                    <div class="link-name d-flex justify-content-center mt-2">{{ $testi->tanggal }}</div>
+                </div>
+              </div>
+            </div>
+            @endforeach
+          </div>
+        </div> 
+      </div>
+    </section>
+    {{-- <div>{!! $testimonis->links() !!}</div> --}}
 
-<div class="container">
+
+{{-- <div class="container">
   
   <div class="row row-cols-auto">
     @foreach ($testimonis as $item)
@@ -175,7 +231,7 @@
     </div> 
     @endforeach
   </div>
-</div>
+</div> --}}
   
   
   

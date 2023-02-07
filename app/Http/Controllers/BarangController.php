@@ -25,7 +25,7 @@ class BarangController extends Controller
                 'barangs'=>Barang::all(),
                 'items'=>$preview->items,
                 'kategoris'=>Kategori::all(),
-                'testimonis'=>Testimoni::all(),
+                'testimonis'=>Testimoni::paginate(3),
                 "active" =>'home',
             ]);
     }

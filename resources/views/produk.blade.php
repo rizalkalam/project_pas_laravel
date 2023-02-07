@@ -9,7 +9,7 @@
     <div class="col-md-3">
     <a href="/barang/{{ $barang->slug }}" style="text-decoration: none; color:black">
     <div class="card produk">
-        <img src="../{{ $barang->gambar_barang }}" class="card-img-top">
+        <img src="{{ asset('images/'.$barang->gambar_barang) }}" class="card-img-top">
         <div class="nama-produk">
             <p>{{ $barang->nama_barang }}</p>
         </a>
