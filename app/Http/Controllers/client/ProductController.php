@@ -10,11 +10,21 @@ class ProductController extends Controller
 {
     public function index()
     {
+        $data = array();
         $products = Barang::all();
+        foreach ($products as $product) {
+            $data[]=[
+                'id'=>$product->id,
+                'kategori_id'=>$product->kategori_id,
+                'nama_barang'=>$product->nama_barang,
+                'harga'=>$product->harga,
+                'gambar_barang'=>$product->gambar_barang
+            ];
+        }
         return response()->json([
             "success" => true,
             "message" => "Product List",
-            "data" => $products
+            "data" => $data
         ]);
     }
 
