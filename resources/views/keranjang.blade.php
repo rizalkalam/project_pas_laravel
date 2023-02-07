@@ -4,7 +4,13 @@
     <div class="container">
       <div class="row w-100">
           <div class="col-lg-12 col-md-12 col-12">
-                  <h5 class="font-weight-bold mt-3 mb-4"><b>{{ count($keranjang) }}</b> <span class="text-secondary">Barang di keranjangmu</span></h5>
+             
+            {{-- @if ($item->user->id == auth()->user()->id)
+                <h5 class="font-weight-bold mt-3 mb-4"><b>{{ count($keranjang) }}</b> <span class="text-secondary">Barang di keranjangmu</span></h5>
+            @else
+                <h5 class="font-weight-bold mt-3 mb-4"><b>0</b> <span class="text-secondary">Barang di keranjangmu</span></h5>
+            @endif --}}
+           
               <table id="shoppingCart" class="table table-condensed table-responsive">
                   <thead>
                       <tr>
@@ -16,13 +22,14 @@
                       </tr>
                   </thead>
                   <tbody>
+
                     @php
                         $no = 1;
                         $grandtotal = 0;
                     @endphp
-
                     @foreach ($keranjang as $item)
                     @if ($item->user->id == auth()->user()->id)    
+                    {{-- <h5 class="font-weight-bold mt-3 mb-4"><b>{{ count($keranjang) }}</b> <span class="text-secondary">Barang di keranjangmu</span></h5> --}}
 
                     @php
                         $subtotal= $item["harga"] * $item["jumlah"]
@@ -32,7 +39,7 @@
                         <td data-th="Product">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <img src="{{ $item->barang->gambar_barang }}" alt="" class="img-fluid d-none d-md-block rounded mb-2 ">
+                                    <img src="{{ asset('images/'.$item->barang->gambar_barang) }}" alt="" class="img-fluid d-none d-md-block rounded mb-2 ">
                                 </div>
                                 <div class="col-md-9 text-left mt-sm-2">
                                     <h4>{{ $item->nama_barang }}</h4>
@@ -57,13 +64,13 @@
                             </div>
                         </td>
                     </tr>
+                    @php
+                        $grandtotal+= $subtotal;
+                    @endphp
                     @else
           
                     @endif
 
-                    @php
-                        $grandtotal+= $subtotal;
-                    @endphp
 
                     @endforeach
                   </tbody>

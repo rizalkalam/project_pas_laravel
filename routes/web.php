@@ -10,6 +10,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TestimoniController;
+use App\Http\Controllers\Dashboard\DashboardProdukController;
+use App\Http\Controllers\Dashboard\DashboardPenggunaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,8 +79,19 @@ Route::group(["prefix"=>"keranjang"], function(){
 });
 
 // DASHBOARD
-Route::group(["prefix"=>"dashboard"], function(){
-    Route::middleware('role:admin')->get('/home', function(){
+Route::group(["middleware" => "role:admin", "prefix"=>"dashboard"], function(){
+    Route::get('/home', function(){
         return view('dashboard.home');
-    })->name('dashboard');
+    })->name('dashboard')->middleware('auth');
+
+    // dashboard produk
+    Route::get('/produk', [DashboardProdukController::class, 'index'])->middleware('auth');
+    Route::get('/produk/create', [DashboardProdukController::class, 'create'])->middleware('auth');
+    Route::post('/produk/add', [DashboardProdukController::class, 'store'])->middleware('auth');
+    Route::get('/produk/edit/{barang:slug}', [DashboardProdukController::class, 'edit'])->middleware('auth');
+    Route::post('/produk/update/{barang:slug}', [DashboardProdukController::class, 'update'])->middleware('auth');
+    Route::delete('/produk/delete/{barang:slug}', [DashboardProdukController::class, 'destroy'])->middleware('auth');
+
+    // dashboard pengguna
+    Route::get('/pengguna', [DashboardPenggunaController::class, 'index']);
 });
