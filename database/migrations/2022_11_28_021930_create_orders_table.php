@@ -15,10 +15,16 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_pengguna');
-            $table->foreignId('id_barang');
-            $table->double('jumlah_barang');
-            $table->string('metode_pembayaran');
+            $table->foreignId('user_id');
+            $table->foreignId('barang_id');
+            $table->string('username');
+            $table->string('alamat');
+            $table->string('no_hp');
+            $table->integer('jumlah');
+            $table->double('total_harga');
+            $table->enum('status', ['Unpaid', 'Paid']);
+            // $table->enum('payment_status', ['1', '2', '3', '4'])->comment('1=menunggu pembayaran, 2=sudah dibayar, 3=kadaluarsa, 4=batal');
+            // $table->string('snap_token', 36)->nullable();
             $table->timestamps();
         });
     }

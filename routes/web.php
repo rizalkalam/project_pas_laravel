@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\SofaController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TestimoniController;
@@ -76,6 +77,13 @@ Route::group(["prefix"=>"keranjang"], function(){
     Route::delete('/hapus/{cart}',[CartController::class, 'deleteCart']);
 
     // Route::get():
+});
+
+// ORDER
+Route::group(["prefix"=>"order"], function(){
+    Route::get('/',[OrderController::class,'index']);
+    Route::post('/checkout', [OrderController::class, 'checkout']);
+    Route::post('/payment', [OrderController::class, 'payment']);
 });
 
 // DASHBOARD
