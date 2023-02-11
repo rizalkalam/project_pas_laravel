@@ -33,7 +33,7 @@ class AuthController extends Controller
             'no_hp'=> $request->no_hp
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('sha256', $plainTextToken = Str::random(80));
 
         return response()->json([
             'data' => $user,
@@ -53,10 +53,11 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->firstOrFail();
 
         $token = $user->createToken('auth_token')->plainTextToken;
+        $auth_token = explode('|', $token)[1];
 
         return response()->json([
             'message' => 'Login success',
-            'access_token' => $token,
+            'access_token' => $auth_token,
             'token_type' => 'Bearer'
         ]);
     }
