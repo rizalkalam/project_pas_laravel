@@ -33,7 +33,7 @@ class AuthController extends Controller
             'no_hp'=> $request->no_hp
         ]);
 
-        $token = $user->createToken('sha256', $plainTextToken = Str::random(80));
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'data' => $user,
