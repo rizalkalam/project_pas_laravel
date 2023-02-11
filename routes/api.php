@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\client\AuthController;
+use App\Http\Controllers\client\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,9 +32,20 @@ Route::post('/register', [\App\Http\Controllers\client\AuthController::class, 'r
 Route::post('/login', [\App\Http\Controllers\client\AuthController::class, 'login']);
 
 // setelah daftar dan masuk bisa akses ini
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function(){
+    Route::get('/user', function (Request $request){
+        return $request->user();
+    });
 });
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [\App\Http\Controllers\client\AuthController::class, 'logout']);
-});
+
+Route::group(["prefix"=>"/produk"], function(){
+    Route::get('/', [ProductController::class, 'index']);
+    Route::get('/{id?}', [ProductController::class, 'detail']);
+});  
+
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+// Route::middleware('auth:sanctum')->group(function () {
+//     Route::post('/logout', [\App\Http\Controllers\client\AuthController::class, 'logout']);
+// });
