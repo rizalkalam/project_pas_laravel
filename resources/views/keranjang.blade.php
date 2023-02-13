@@ -83,20 +83,25 @@
                     </div>
                 </div>
             </div>
-            <form action="/order/payment" method="post">
+
+            @foreach ($keranjang as $produk)
+            <form action="/order/payment/{{ $produk->id }}" method="post">
                 @csrf
-                <input type="hidden" class="form-control form-control-lg text-center" name="barang_id" id="barang_id" value="{{ $item->barang->id }}">
-                <input type="hidden" class="form-control form-control-lg text-center" name="user_id" id="user_id" value="{{ auth()->user()->username }}">
+                <input type="hidden" class="form-control form-control-lg text-center" name="barang_id" id="barang_id" value="{{ $produk->barang_id }}">
+                <input type="hidden" class="form-control form-control-lg text-center" name="user_id" id="user_id" value="{{ auth()->user()->id }}">
+                <input type="hidden" class="form-control form-control-lg text-center" name="username" id="username" value="{{ auth()->user()->username }}">
                 <input type="hidden" class="form-control form-control-lg text-center" name="alamat" id="alamat" value="{{ auth()->user()->alamat }}">
                 <input type="hidden" class="form-control form-control-lg text-center" name="no_hp" id="no_hp" value="{{ auth()->user()->no_hp }}">
-                <input type="hidden" class="form-control form-control-lg text-center" name="jumlah" id="jumlah" value="{{ $item->jumlah }}">
-                <input type="hidden" class="form-control form-control-lg text-center" name="total_harga" id="total_harga" value="{{ $item->harga }}">
+                <input type="hidden" class="form-control form-control-lg text-center" name="jumlah" id="jumlah" value="{{ $produk->jumlah }}">
+                <input type="hidden" class="form-control form-control-lg text-center" name="total_harga" id="total_harga" value="{{ $grandtotal }}">
+            @endforeach
             <div class="row mt-5 d-flex align-items-center">
                 <div class="order-md-2 text-right mt-3">
                     <button type="submit" class="btn mb-5 btn-lg pl-5 pr-5 tombol-checkout">Checkout</button>
                 </div>
             </div>
         </form>
+        
         </div>
   </section>
 

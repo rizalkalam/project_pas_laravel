@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Midtrans\Snap;
 use App\Models\Order;
 use App\Models\Kategori;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Config;
 
 class OrderController extends Controller
@@ -26,26 +29,28 @@ class OrderController extends Controller
 
     }
 
-    public function payment(Request $request)
+    public function payment(Request $request, $id)
     {
-        $data = Order::where('user_id', Auth::user()->id)->first();
-        // $order = Order::create($request->all());
+        $person = Order::where('user_id', Auth::user()->id)->where('barang_id', $id)->first();;
+        $data = Order::create($request->all());
 
-        $validateData = $request->validate([
-            'user_id' => 'required',
-            'barang_id'=> 'required|max:255',
-            'username'=> 'required',  
-            'alamat'=> 'required',
-            'no_hp'=> 'required',
-            'jumlah'=> 'required',
-            'total_harga'=> 'required',
-            'status'=> '',
-        ]);
+        // $data = Order::create($request->validate([
+        //     'id'=>'required|hash',
+        //     'user_id' => 'required',
+        //     'barang_id'=> 'required|max:255',
+        //     'username'=> 'required',  
+        //     'alamat'=> 'required',
+        //     'no_hp'=> 'required',
+        //     'jumlah'=> 'required',
+        //     'total_harga'=> 'required',
+        //     'status'=> '',
+        // ]));
 
-        Order::create($validateData);
+        // Order::create($data);
+
 
         // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = 'SB-Mid-client-p8L9Y7J0dvcF4gE6';
+        \Midtrans\Config::$serverKey = 'SB-Mid-server-qcwSPi9JWa2q1rbWKW_cu_m4';
         // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
         \Midtrans\Config::$isProduction = false;
         // Set sanitization on (default)
@@ -55,27 +60,16 @@ class OrderController extends Controller
 
         $params = array(
             'transaction_details' => array(
-                'order_id' => $order->id,
-                'gross_amount' => $order->total_harga,
+                'order_id' => $data->id,
+                'gross_amount' => $data->total_harga*$data->jumlah,
+                'payment_amounts' => $data->total_harga*$data->jumlah,
             ),
-            // 'item_details' => array(
-            //     [
-            //         'id' => '1',
-            //         'price' => '99000',
-            //         'quantity' => '1',
-            //         'name' => 'kursi'
-            //     ],
-            //     [
-            //         'id' => '2',
-            //         'price' => '22000',
-            //         'quantity' => '1',
-            //         'name' => 'meja'
-            //     ],
-            // ),
+           
             'customer_details' => array(
                 'first_name' => $request->username,
                 // 'last_name' => '',
-                // 'email' => $request->get('eml'),
+                // 'email' => $request->email,
+                'alamat'=> $request->alamat,
                 'phone' => $request->no_hp,
             ),
         );
@@ -84,7 +78,22 @@ class OrderController extends Controller
         
 
         return view('order',[
-            'snap_token'=>$snapToken,
+            'snapToken'=>$snapToken,
+            'active' =>'kategori',
+            'kategoris' => Kategori::all(),
+            'data'=>$data->id = Str::random(9)
         ]);
+    }
+
+    public function callback(Request $request)
+    {
+        $serverKey = 'SB-Mid-server-qcwSPi9JWa2q1rbWKW_cu_m4';
+        $hashed = hash("sha512", $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
+        if ($hashed == $request->signature_key) {
+            if ($request->transaction_status == 'capture') {
+                $data = Order::find($request->order_id);
+                $data->update(['status' => 'Paid']);
+            }
+        }
     }
 }
