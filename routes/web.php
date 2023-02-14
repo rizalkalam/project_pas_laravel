@@ -75,7 +75,6 @@ Route::group(["prefix"=>"keranjang"], function(){
     })->name('keranjang');
     Route::post('/tambah/{id}',[CartController::class, 'addCart']);
     Route::delete('/hapus/{cart}',[CartController::class, 'deleteCart']);
-
     // Route::get():
 });
 
@@ -83,7 +82,7 @@ Route::group(["prefix"=>"keranjang"], function(){
 Route::group(["prefix"=>"order"], function(){
     Route::get('/',[OrderController::class,'index']);
     Route::post('/checkout', [OrderController::class, 'checkout']);
-    Route::post('/payment', [OrderController::class, 'payment']);
+    Route::post('/payment/{id}', [OrderController::class, 'payment']);
 });
 
 // DASHBOARD
