@@ -18,11 +18,14 @@ class AuthController extends Controller
             'email' => 'required|string|max:255|unique:users',
             'password' => 'required|string|min:8',
             'alamat'=>'required',
-            'no_hp'=>'required'
+            'no_hp'=>'required|unique:users'
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors());
+            return response()->json([
+                'message'=> 'Confilct',
+                'erorr'=> $validator->errors()
+            ],409);
         }
 
         $user = User::create([
@@ -36,8 +39,9 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
+            'message' => 'You have Successfully Registered',
             'data' => $user,
-            'access_token' => $token,
+            'access_token' => $auth_token,
             'token_type' => 'Bearer'
         ]);
     }
