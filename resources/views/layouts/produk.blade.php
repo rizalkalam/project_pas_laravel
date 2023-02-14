@@ -8,6 +8,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js">
     <link rel="stylesheet" href="/css/style.css">
+
+    {{-- midtrans --}}
+        <!-- @TODO: replace SET_YOUR_CLIENT_KEY_HERE with your client key -->
+        <script type="text/javascript"
+          src="https://app.sandbox.midtrans.com/snap/snap.js"
+          data-client-key="SB-Mid-client-p8L9Y7J0dvcF4gE6"></script>
+        <!-- Note: replace with src="https://app.midtrans.com/snap/snap.js" for Production environment -->
+    {{-- midtrans --}}
     <title>Amanah Furniture</title>
 </head>
 <body>
