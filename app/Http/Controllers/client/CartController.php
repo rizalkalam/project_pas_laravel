@@ -15,16 +15,18 @@ class CartController extends Controller
         $data = array();
         $carts = Cart::all();
         foreach ($carts as $cart) {
-            $data[]=[
-                'id'=>$cart->id,
-                'user_id'=>$cart->user_id,
-                'barang_id'=>$cart->barang_id,
-                'username'=>$cart->username,
-                'nama_barang'=>$cart->nama_barang,
-                'harga'=>$cart->harga,
-                'jumlah'=>$cart->jumlah,
-                'total_harga'=>$cart->total_harga
-            ];
+            if ($cart->user->id == auth()->user()->id) {
+                $data[]=[
+                    'id'=>$cart->id,
+                    'user_id'=>$cart->user_id,
+                    'barang_id'=>$cart->barang_id,
+                    'username'=>$cart->username,
+                    'nama_barang'=>$cart->nama_barang,
+                    'harga'=>$cart->harga,
+                    'jumlah'=>$cart->jumlah,
+                    'total_harga'=>$cart->total_harga
+                ];
+            }
         }
         return response()->json([
             "success" => true,
@@ -35,7 +37,7 @@ class CartController extends Controller
 
     public function addCart(Request $request, $id)
     {
-        $data = Cart::where('barang_id', $id)->first();
+        $data = Cart::where('user_id', Auth::user()->id)->where('barang_id', $id)->first();
 
         if ($data) {
             return response()->json([
@@ -56,9 +58,9 @@ class CartController extends Controller
             ]);
 
             $cart = Cart::create([
-                'user_id' => $request->user_id,
+                'user_id' => auth()->user()->id,
                 'barang_id'=> $request->barang_id,
-                'username'=> $request->username,  
+                'username'=> auth()->user()->username,  
                 'nama_barang'=> $request->nama_barang,
                 'harga'=> $request->harga,
                 'jumlah'=> $request->jumlah,
@@ -73,11 +75,23 @@ class CartController extends Controller
     }
 
     public function deleteCart(Cart $cart, $id){
-        $data = Cart::whereId($id)->first();
-        $data->delete();
+        $data = Cart::where('user_id', Auth::user()->id)->whereId($id)->first();
+        
+        if ($data) {
+            $data->delete();
+        // $cart = Cart::destroy($cart->id);
         return response()->json([
             'message' => 'Barang berhasil dihapus dari keranjang',
             'data' => ['nama_barang'=>$data->nama_barang]
+            // 'data' => $cart
         ]);
+
+        }else {
+            return response()->json([
+                'message'=> 'Error',
+                'erorr'=> 'barang tidak ada di keranjang'
+            ],409);
+        }
+        
     }
 }
