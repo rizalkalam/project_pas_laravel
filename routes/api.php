@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SendNotifController;
 use App\Http\Controllers\client\AuthController;
+use App\Http\Controllers\client\CartController;
 use App\Http\Controllers\client\ProductController;
 use App\Http\Controllers\API\UserDeviceAPIController;
 
@@ -56,6 +57,11 @@ Route::post('/midtrans-callback', [OrderController::class, 'callback']);
 // route untuk onesignal
 Route::post('user-device/register', [UserDeviceAPIController::class, 'registerDevice']);
 Route::get('user-device/{playerId}/update-status', [UserDeviceAPIController::class, 'updateNotificationStatus']);
+
+// route untuk keranjang
+Route::get('/keranjang',[CartController::class,'index']);
+Route::post('/keranjang/tambah/{id?}',[CartController::class,'addCart']);
+Route::delete('/keranjang/hapus/{id?}',[CartController::class,'deleteCart']);
 
 Route::post('send',[SendNotifController::class,'send']);
 
