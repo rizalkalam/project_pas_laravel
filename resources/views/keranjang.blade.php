@@ -1,17 +1,89 @@
 @extends('layouts.main')
 @section('content')
-<section class="pt-5 pb-5">
-    <div class="container">
-      <div class="row w-100">
-          <div class="col-lg-12 col-md-12 col-12">
+
              
             {{-- @if ($item->user->id == auth()->user()->id)
                 <h5 class="font-weight-bold mt-3 mb-4"><b>{{ count($keranjang) }}</b> <span class="text-secondary">Barang di keranjangmu</span></h5>
             @else
                 <h5 class="font-weight-bold mt-3 mb-4"><b>0</b> <span class="text-secondary">Barang di keranjangmu</span></h5>
             @endif --}}
+
+            <div class="cart_section">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-10 offset-lg-1">
+                            <div class="cart_container">
+                              {{-- <h5 class="font-weight-bold mt-3 mb-3"><b>3</b> <span class="text-secondary">Barang di keranjangmu</span></h5> --}}
+                                <div class="cart_items">
+                                    <ul class="cart_list">
+
+                                        @php
+                                            $no = 1;
+                                            $grandtotal = 0;
+                                        @endphp
+
+                                        @foreach ($keranjang as $item)
+                                        @if ($item->user->id == auth()->user()->id)    
+                                        @php
+                                            $subtotal= $item["harga"] * $item["jumlah"]
+                                        @endphp
+                                        <li class="cart_item clearfix">
+                                            <div class="cart_item_image"><img src="{{ asset('images/'.$item->barang->gambar_barang) }}" alt=""></div>
+                                            <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between ">
+                                                <div class="cart_item_name cart_info_col text-center nama-barang">
+                                                    {{-- <div class="cart_item_title">Nama Barang</div> --}}
+                                                    <div class="cart_item_text">{{ $item->nama_barang }}</div>
+                                                </div>
+                                                <div class="cart_item_quantity cart_info_col align-content-center jumlah">
+                                                  {{-- <div class="cart_item_title">Jumlah</div> --}}
+                                                  <input type="number" class="form-control form-control-lg text-center w-25 mt-3" value="{{ $item->jumlah }}">
+                                                </div>
+                                                <div class="cart_item_total cart_info_col text-center cart-harga">
+                                                    {{-- <div class="cart_item_title">Harga</div> --}}
+                                                    <div class="cart_item_text">@currency($item->harga)</div>
+                                                </div>
+                                                <div class="cart_item_total cart_info_col text-center">
+                                                    <form action="/keranjang/hapus/{{ $item->id }}" method="post">
+                                                        @method('delete')
+                                                        @csrf
+                                                        <button class="btn w-75 btn-md align-content-md-end tombol-hapus mb-2 mt-3 ms-3 tombol-remove">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-circle pe-1" viewBox="0 0 16 16">
+                                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                                            </svg>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        @php
+                                            $grandtotal+= $subtotal;
+                                        @endphp
+                                        @else
+                            
+                                        @endif
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                <div class="order_total">
+                                    <div class="order_total_content text-md-right">
+                                        <div class="order_total_title ps-4">Total:</div>
+                                        <div class="order_total_amount">@currency($grandtotal)</div>
+                                        <div class="order-md-2 text-right tombol-checkout">
+                                          <a href="/checkout.html" class="btn mb-5 btn-lg pl-5 pr-5">Checkout</a>
+                                      </div>
+                                    </div>
+                                    <!-- <div class="cart_buttons">
+                                      <button type="button" class="btn fw-bold float-end">Checkout</button>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
            
-              <table id="shoppingCart" class="table table-condensed table-responsive">
+              {{-- <table id="shoppingCart" class="table table-condensed table-responsive">
                   <thead>
                       <tr>
                           <th style="width:8%">No</th>
@@ -29,7 +101,6 @@
                     @endphp
                     @foreach ($keranjang as $item)
                     @if ($item->user->id == auth()->user()->id)    
-                    {{-- <h5 class="font-weight-bold mt-3 mb-4"><b>{{ count($keranjang) }}</b> <span class="text-secondary">Barang di keranjangmu</span></h5> --}}
 
                     @php
                         $subtotal= $item["harga"] * $item["jumlah"]
@@ -82,9 +153,10 @@
                         <h2>@currency($grandtotal)</h2>
                     </div>
                 </div>
-            </div>
+            </div> --}}
+            
 
-            @foreach ($keranjang as $produk)
+            {{-- @foreach ($keranjang as $produk)
             <form action="/order/payment/{{ $produk->id }}" method="post">
                 @csrf
                 <input type="hidden" class="form-control form-control-lg text-center" name="barang_id" id="barang_id" value="{{ $produk->barang_id }}">
@@ -102,7 +174,7 @@
             </div>
         </form>
         
-        </div>
+        </div> --}}
   </section>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

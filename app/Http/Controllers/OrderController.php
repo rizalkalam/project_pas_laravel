@@ -33,22 +33,7 @@ class OrderController extends Controller
     {
         $person = Order::where('user_id', Auth::user()->id)->where('barang_id', $id)->first();;
         $data = Order::create($request->all());
-
-        // $data = Order::create($request->validate([
-        //     'id'=>'required|hash',
-        //     'user_id' => 'required',
-        //     'barang_id'=> 'required|max:255',
-        //     'username'=> 'required',  
-        //     'alamat'=> 'required',
-        //     'no_hp'=> 'required',
-        //     'jumlah'=> 'required',
-        //     'total_harga'=> 'required',
-        //     'status'=> '',
-        // ]));
-
-        // Order::create($data);
-
-
+        
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = 'SB-Mid-server-qcwSPi9JWa2q1rbWKW_cu_m4';
         // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).

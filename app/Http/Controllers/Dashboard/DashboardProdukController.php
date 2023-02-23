@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Models\Barang;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Ladumor\OneSignal\OneSignal;
 use App\Http\Controllers\Controller;
 
 class DashboardProdukController extends Controller
@@ -37,6 +38,10 @@ class DashboardProdukController extends Controller
             $data->save();
         }
 
+        $fields['include_player_ids'] = [$playerId];
+        $message = 'Ada produk baru!!!, Jangan lewatkan' ;  
+        
+        OneSignal::sendPush($fields, $message);
         return redirect('/dashboard/produk')->with('success', 'Produk berhasil ditambhakan !');
     }
 
