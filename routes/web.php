@@ -9,6 +9,7 @@ use App\Http\Controllers\SofaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TestimoniController;
 use App\Http\Controllers\Dashboard\DashboardProdukController;
@@ -35,7 +36,6 @@ Route::post('/beranda/update/{testimoni}', [BarangController::class, 'update']);
 
 Route::get('/produk', function(Kategori $kategori){
     return view('produk_all',[
-        // 'barangs'=>Barang::all()
         "active" =>'kategori',
         'kategoris' => Kategori::all(),
     ]);
@@ -60,9 +60,12 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
 
-// Route::get('/',[TestimoniController::class, 'index']);
-// Route::get('/beranda',[TestimoniController::class, 'index']);
-
+// PROFILE
+Route::group(["prefix"=>"profile"], function(){
+    Route::get('/me',[ProfileController::class, 'index'])->middleware('auth');
+    Route::get('/edit/{id}',[ProfileController::class, 'edit'])->name('no-footer')->middleware('auth');
+    Route::post('/update/{id}',[ProfileController::class, 'update'])->middleware('auth');
+});
 
 // CART
 Route::group(["prefix"=>"keranjang"], function(){
@@ -72,10 +75,9 @@ Route::group(["prefix"=>"keranjang"], function(){
             'kategoris' => Kategori::all(),
             'keranjang'=> Cart::all()
         ]);
-    })->name('keranjang');
+    })->name('no-footer');
     Route::post('/tambah/{id}',[CartController::class, 'addCart']);
     Route::delete('/hapus/{cart}',[CartController::class, 'deleteCart']);
-    // Route::get():
 });
 
 // ORDER
