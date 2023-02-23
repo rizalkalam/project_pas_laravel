@@ -2,85 +2,83 @@
 
 namespace App\Http\Controllers;
 
+use Midtrans\Snap;
 use App\Models\Order;
-use App\Http\Requests\StoreOrderRequest;
-use App\Http\Requests\UpdateOrderRequest;
+use App\Models\Kategori;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Config;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        return view('order',[
+            'orders'=>Order::all(),
+            'active' =>'kategori',
+            'kategoris' => Kategori::all(),
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function checkout(Request $request)
     {
-        //
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreOrderRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreOrderRequest $request)
+    public function payment(Request $request, $id)
     {
-        //
+        $person = Order::where('user_id', Auth::user()->id)->where('barang_id', $id)->first();;
+        $data = Order::create($request->all());
+        
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = 'SB-Mid-server-qcwSPi9JWa2q1rbWKW_cu_m4';
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
+
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => $data->id,
+                'gross_amount' => $data->total_harga*$data->jumlah,
+                'payment_amounts' => $data->total_harga*$data->jumlah,
+            ),
+           
+            'customer_details' => array(
+                'first_name' => $request->username,
+                // 'last_name' => '',
+                // 'email' => $request->email,
+                'alamat'=> $request->alamat,
+                'phone' => $request->no_hp,
+            ),
+        );
+
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+        
+
+        return view('order',[
+            'snapToken'=>$snapToken,
+            'active' =>'kategori',
+            'kategoris' => Kategori::all(),
+            'data'=>$data->id = Str::random(9)
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Order $order)
+    public function callback(Request $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateOrderRequest  $request
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateOrderRequest $request, Order $order)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Order $order)
-    {
-        //
+        $serverKey = 'SB-Mid-server-qcwSPi9JWa2q1rbWKW_cu_m4';
+        $hashed = hash("sha512", $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
+        if ($hashed == $request->signature_key) {
+            if ($request->transaction_status == 'capture') {
+                $data = Order::find($request->order_id);
+                $data->update(['status' => 'Paid']);
+            }
+        }
     }
 }

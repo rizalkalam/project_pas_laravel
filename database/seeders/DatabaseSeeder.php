@@ -33,8 +33,8 @@ class DatabaseSeeder extends Seeder
         // Testimoni::factory(4)->create();
         // User::factory(5)->create();
         Testimoni::factory(5)->create();
-        Transaksi::factory(5)->create();
-        Order::factory(5)->create();
+        // Transaksi::factory(5)->create();
+        // Order::factory(5)->create();
         $this->call([
             BarangSeeder::class,
             KategoriSeeder::class,

@@ -9,6 +9,8 @@ use App\Models\Kategori;
 use App\Models\Testimoni;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Cookie;
 use App\Http\Requests\StoreBarangRequest;
 use App\Http\Requests\UpdateBarangRequest;
 
@@ -19,13 +21,16 @@ class BarangController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Preview $preview)
+    public function index(Preview $preview, Request $request)
     {
+        // $val = Crypt::encrypt(Cookie::get('playerID'), false);
             return view('home',[
+                // dd($val),
+                // 'cookie'=>$val,
                 'barangs'=>Barang::all(),
                 'items'=>$preview->items,
                 'kategoris'=>Kategori::all(),
-                'testimonis'=>Testimoni::all(),
+                'testimonis'=>Testimoni::paginate(3),
                 "active" =>'home',
             ]);
     }
@@ -35,10 +40,6 @@ class BarangController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -79,10 +80,6 @@ class BarangController extends Controller
      * @param  \App\Models\Barang  $barang
      * @return \Illuminate\Http\Response
      */
-    public function edit(Barang $barang)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
