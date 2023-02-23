@@ -7,9 +7,10 @@
     </div>
   </div>
   <div class="col-4">
-    <div class="judul-intro">
+    <!-- <div class="judul-intro">
       <h1 class="fw-bold">AMANAH <br> FURNITURE</h1>
-    </div>
+    </div> -->
+    <img src="/assets/Logo Amanah Furniture.png" alt="" class="logo">
     <div class="slogan">
       <h3>Furniture Kelas Dunia <br> Terjangkau Harganya!</h3>
       <a href="#sec_produk"><button type="button" class="btn btn-primary border-0 mt-4 fw-500">Jelajahi</button></a>
@@ -91,7 +92,7 @@
 <div class="container mt-5 text-center">
   <div class="row row-cols-auto">
     @foreach ($barangs as $barang)    
-    <div class="col-md-3">
+    <div class="col-md-3 mb-4">
       <div class="card produk">
         <a href="/barang/{{ $barang->slug }}" style="text-decoration: none; color:black">
             <img src="{{ asset('images/'.$barang->gambar_barang) }}" class="card-img-top">
@@ -101,11 +102,12 @@
           <div class="harga">
             <p>@currency($barang->harga)</p>
           </div>
-        </a>    
+        </a>
       </div>
     </div>
     @endforeach
   </div>
+  
 </div>
 <!-- akhir produk -->
 
