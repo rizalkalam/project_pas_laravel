@@ -29,10 +29,24 @@ class OrderController extends Controller
 
     }
 
-    public function payment(Request $request, $id)
+    public function payment(Request $request)
     {
-        $person = Order::where('user_id', Auth::user()->id)->where('barang_id', $id)->first();;
-        $data = Order::create($request->all());
+        $data = Order::where('user_id', Auth::user()->id)->first();
+        $order = Order::create($request->all());
+
+        // $validateData = $request->validate([
+        //     'user_id' => 'required',
+        //     'barang_id'=> 'required|max:255',
+        //     'username'=> 'required',  
+        //     'alamat'=> 'required',
+        //     'no_hp'=> 'required',
+        //     'jumlah'=> 'required',
+        //     'total_harga'=> 'required',
+        //     'status'=> '',
+        // ]);
+
+        // Order::create($validateData);
+        
         
         // Set your Merchant Server Key
         \Midtrans\Config::$serverKey = 'SB-Mid-server-qcwSPi9JWa2q1rbWKW_cu_m4';
@@ -45,9 +59,9 @@ class OrderController extends Controller
 
         $params = array(
             'transaction_details' => array(
-                'order_id' => $data->id,
-                'gross_amount' => $data->total_harga*$data->jumlah,
-                'payment_amounts' => $data->total_harga*$data->jumlah,
+                'order_id' => $order->id,
+                'gross_amount' => $order->total_harga,
+                // 'payment_amounts' => $data->total_harga*$data->jumlah,
             ),
            
             'customer_details' => array(
@@ -66,7 +80,7 @@ class OrderController extends Controller
             'snapToken'=>$snapToken,
             'active' =>'kategori',
             'kategoris' => Kategori::all(),
-            'data'=>$data->id = Str::random(9)
+            'data'=>$order->id = Str::random(9)
         ]);
     }
 

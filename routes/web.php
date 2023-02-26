@@ -30,12 +30,12 @@ Route::get('/', [BarangController::class,'index']);
 
 Route::get('/beranda', [BarangController::class, 'index']);
 
-Route::post('/add', [BarangController::class, 'store']);
 Route::delete('/beranda/delete/{testimoni}', [BarangController::class, 'destroy']);
 Route::post('/beranda/update/{testimoni}', [BarangController::class, 'update']);
 
 Route::get('/produk', function(Kategori $kategori){
     return view('produk_all',[
+        'products'=>Barang::filter(request(['search','range']))->paginate(8),
         "active" =>'kategori',
         'kategoris' => Kategori::all(),
     ]);
@@ -53,11 +53,11 @@ Route::get('/kategori/{kategori:slug}', function(Kategori $kategori){
 
 Route::get('/barang/{barang:slug}', [BarangController::class, 'show']);
 
-Route::get('/login', [LoginController::class, 'index'])->middleware('guest');
+Route::get('/login', [LoginController::class, 'index'])->middleware('guest')->name('no-footer');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
-Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
+Route::get('/register', [RegisterController::class, 'index'])->middleware('guest')->name('no-footer');
 Route::post('/register', [RegisterController::class, 'store']);
 
 // PROFILE
@@ -65,6 +65,12 @@ Route::group(["prefix"=>"profile"], function(){
     Route::get('/me',[ProfileController::class, 'index'])->middleware('auth');
     Route::get('/edit/{id}',[ProfileController::class, 'edit'])->name('no-footer')->middleware('auth');
     Route::post('/update/{id}',[ProfileController::class, 'update'])->middleware('auth');
+    Route::post('/testi/add', [ProfileController::class, 'store']);
+    Route::delete('/testi/delete/{testimoni}', [ProfileController::class, 'destroy']);
+    Route::post('/testi/update/{testimoni}', [ProfileController::class, 'uptesti']);
+    Route::post('/verif',[ProfileController::class,'verif']);
+    Route::get('/pw',[ProfileController::class,'pwview'])->name('verif');
+    Route::post('/reset',[ProfileController::class,'uppassword']);
 });
 
 // CART
@@ -83,8 +89,8 @@ Route::group(["prefix"=>"keranjang"], function(){
 // ORDER
 Route::group(["prefix"=>"order"], function(){
     Route::get('/',[OrderController::class,'index']);
-    Route::post('/checkout', [OrderController::class, 'checkout']);
-    Route::post('/payment/{id}', [OrderController::class, 'payment']);
+    Route::get('/checkout', [OrderController::class, 'checkout']);
+    Route::post('/payment', [OrderController::class, 'payment']);
 });
 
 // DASHBOARD
@@ -94,13 +100,13 @@ Route::group(["middleware" => "role:admin", "prefix"=>"dashboard"], function(){
     })->name('dashboard')->middleware('auth');
 
     // dashboard produk
-    Route::get('/produk', [DashboardProdukController::class, 'index'])->middleware('auth');
-    Route::get('/produk/create', [DashboardProdukController::class, 'create'])->middleware('auth');
-    Route::post('/produk/add', [DashboardProdukController::class, 'store'])->middleware('auth');
-    Route::get('/produk/edit/{barang:slug}', [DashboardProdukController::class, 'edit'])->middleware('auth');
-    Route::post('/produk/update/{barang:slug}', [DashboardProdukController::class, 'update'])->middleware('auth');
-    Route::delete('/produk/delete/{barang:slug}', [DashboardProdukController::class, 'destroy'])->middleware('auth');
+    Route::get('/produk', [DashboardProdukController::class, 'index'])->middleware('auth')->name('produk');
+    Route::get('/produk/create', [DashboardProdukController::class, 'create'])->middleware('auth')->name('produk');
+    Route::post('/produk/add', [DashboardProdukController::class, 'store'])->middleware('auth')->name('produk');
+    Route::get('/produk/edit/{barang:slug}', [DashboardProdukController::class, 'edit'])->middleware('auth')->name('produk');
+    Route::post('/produk/update/{barang:slug}', [DashboardProdukController::class, 'update'])->middleware('auth')->name('produk');
+    Route::delete('/produk/delete/{barang:slug}', [DashboardProdukController::class, 'destroy'])->middleware('auth')->name('produk');
 
     // dashboard pengguna
-    Route::get('/pengguna', [DashboardPenggunaController::class, 'index']);
+    Route::get('/pengguna', [DashboardPenggunaController::class, 'index'])->name('pengguna');
 });
