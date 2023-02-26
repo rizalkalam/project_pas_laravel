@@ -28,7 +28,7 @@
   </div>
 </div>
 
-<!-- diskon -->
+{{-- <!-- diskon -->
 <div class="diskon pb-5">
   <img class="img-promo" src="./assets/sofa_medium.png" alt="">
   <div class="jumbotron jumbotron-fluid promo">
@@ -46,7 +46,7 @@
     </div>
   </div>
 </div>
-<!-- akhir diskon -->
+<!-- akhir diskon --> --}}
 
 <div class="container mt-5 text-center">
   <div class="row row-cols-auto">
@@ -189,9 +189,9 @@
 
 
   <!-- Button trigger modal -->
-<a type="button" class="btn w-auto ms-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
+{{-- <a type="button" class="btn w-auto ms-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
   Tambah Ulasan
-</a>
+</a> --}}
 @else
 <!-- testi -->
 <h2 class="text-center m-5" style="color: #E0C28D;"><b>Testimoni</b></h2>
@@ -214,30 +214,7 @@
         </div> 
       </div>
     </section>
-    {{-- <div>{!! $testimonis->links() !!}</div> --}}
-
-
-{{-- <div class="container">
-  
-  <div class="row row-cols-auto">
-    @foreach ($testimonis as $item)
-    <div class="col-md-2">
-      <div class="card" style="width: 12rem;">
-        <img src="/assets/testi-cewek.png" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">{{ $item->user->username }}</h5>
-          <p class="card-text">{{ $item->komentar }}</p>
-          <p class="card-text">{{ $item->tanggal }}</p>
-        </div>
-      </div>
-    </div> 
-    @endforeach
-  </div>
-</div> --}}
-  
-  
-  
-  
+    {{-- <div>{!! $testimonis->links() !!}</div> --}}  
 
 @endauth
 
@@ -245,38 +222,6 @@
   
 <!-- Modal -->
 @auth
-    
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Ulasan</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form method="POST" action="/add">
-          @csrf
-          <div >
-            <input type="hidden" required id="useri_id" name="user_id" class="form-control" id="exampleFormControlTextarea1" rows="3" value="{{ auth()->user()->id }}" readonly>
-          </div>
-          <div class="mb-3">
-            <label for="komentar" class="form-label">Deskripsi</label>
-            <textarea required id="komentar" name="komentar" class="form-control" id="exampleFormControlTextarea1" rows="3" ></textarea>
-          </div>
-          <div class="mb-3">
-            <label for="tanggal" class="form-label">Tanggal</label>
-            <input type="date" required id="tanggal" name="tanggal" class="form-control" id="exampleFormControlTextarea1" rows="3">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn mt-3 w-auto" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn mt-3 w-auto">Submit</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- Modal Detail -->
 <div class="modal fade" id="modalDetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">

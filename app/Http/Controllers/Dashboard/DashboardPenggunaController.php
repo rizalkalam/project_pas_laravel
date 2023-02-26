@@ -11,7 +11,7 @@ class DashboardPenggunaController extends Controller
     public function index()
     {
         return view ('dashboard.pengguna.all',[
-            'users'=>User::all(),
+            'users'=>User::latest()->filter(request(['search']))->paginate(30),
         ]);
     }
 

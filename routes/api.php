@@ -21,10 +21,6 @@ use App\Http\Controllers\API\UserDeviceAPIController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 Route::get('/', function () {
     return response()->json([
         'error' => '401',
@@ -44,8 +40,8 @@ Route::middleware('auth:sanctum')->group(function(){
 
     // route untuk keranjang
     Route::get('/keranjang',[CartController::class,'index']);
-    Route::post('/keranjang/tambah/{id?}',[CartController::class,'addCart']);
-    Route::delete('/keranjang/hapus/{id?}',[CartController::class,'deleteCart']);
+    Route::post('/keranjang/tambah/{id}',[CartController::class,'addCart']);
+    Route::delete('/keranjang/hapus/{id}',[CartController::class,'deleteCart']);
 
     Route::post('user-device/register', [UserDeviceAPIController::class, 'registerDevice']);
     Route::get('user-device/{playerId}/update-status', [UserDeviceAPIController::class, 'updateNotificationStatus']);
@@ -65,36 +61,3 @@ Route::post('user-device/register', [UserDeviceAPIController::class, 'registerDe
 Route::get('user-device/{playerId}/update-status', [UserDeviceAPIController::class, 'updateNotificationStatus']);
 
 Route::post('send',[SendNotifController::class,'send']);
-
-
-
-// Route::post('testing', function(){
-//     $client = Http::withHeaders([
-//         'Authorization' => 'MWRkYWNjZGMtZDFkOS00MmExLWEwZTUtNmU2MWEyMjQwMDU0',
-//         'accept' => 'application/json',
-//         'content-type' => 'application/json',
-//     ])
-//     ->post( 'https://onesignal.com/api/v1/notifications')
-//     // ->status();
-//     // require_once('vendor/autoload.php');
-
-//     // $client = new \GuzzleHttp\Client();
-
-//     // $response = $client->request('POST', 'https://onesignal.com/api/v1/notifications', [
-//     // 'body' => '{"included_segments":["Subscribed Users"],"contents":{"en":"English or Any Language Message","es":"Spanish Message"},"name":"INTERNAL_CAMPAIGN_NAME"}',
-//     // 'headers' => [
-//     //     'Authorization' => 'Basic YOUR_REST_API_KEY',
-//     //     'accept' => 'application/json',
-//     //     'content-type' => 'application/json',
-//     // ],
-//     // ]);
-
-//     // echo $response->getBody();
-// });
-
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-// Route::middleware('auth:sanctum')->group(function () {
-//     Route::post('/logout', [\App\Http\Controllers\client\AuthController::class, 'logout']);
-// });
