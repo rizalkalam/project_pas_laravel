@@ -10,24 +10,28 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/dashboard/">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="icon" href="{{ asset('assets/logo_favicon.svg') }}">
-    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
     <script>
-        window.OneSignal = window.OneSignal || [];
-        OneSignal.push(function(){
-            OneSignal.init({
-                appId: "3ac69a68-effe-4db2-99de-19964f0be8e5"
-            })
-        })
+      window.OneSignal = window.OneSignal || [];
+      OneSignal.push(function() {
+        OneSignal.init({
+          appId: "491113c4-ac9e-4c11-ab5b-d0fd3625ac39",
+        });
+      });
     </script>
+    
     <title>Amanah Furniture</title>
 </head>
 <body>
    
     
 
+
     <div id="dashboard">
-    
+    @if (Route::is('verif'))
+    @else
     @include('partials.navbar')
+    @endif
     </div>
     
    
@@ -35,6 +39,8 @@
     @yield('content')
 
     @if (Route::is('no-footer'))
+
+    @elseif(Route::is('verif'))
 
     @else
         @include('partials.footer')

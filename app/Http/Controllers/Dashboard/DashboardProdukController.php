@@ -13,7 +13,8 @@ class DashboardProdukController extends Controller
     public function index()
     {
         return view ('dashboard.produk.all',[
-            'barangs' => Barang::all()
+            'kategori'=> Kategori::all(),
+            'barangs' => Barang::latest()->filter(request(['search','kategori']))->paginate(6)
         ]);
     }
 

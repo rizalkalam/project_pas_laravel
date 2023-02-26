@@ -27,7 +27,7 @@ class BarangController extends Controller
             return view('home',[
                 // dd($val),
                 // 'cookie'=>$val,
-                'barangs'=>Barang::all(),
+                'barangs'=>Barang::latest()->take(8)->get(),
                 'items'=>$preview->items,
                 'kategoris'=>Kategori::all(),
                 'testimonis'=>Testimoni::paginate(3),
@@ -49,14 +49,14 @@ class BarangController extends Controller
      */
     public function store(Request $request,)
     {
-        $validateData = $request->validate([
-            'user_id'=>'required',
-            'komentar'=>'required',
-            'tanggal'=>'required'
-        ]);
+        // $validateData = $request->validate([
+        //     'user_id'=>'required',
+        //     'komentar'=>'required',
+        //     'tanggal'=>'required'
+        // ]);
 
-        Testimoni::create($validateData);
-        return redirect('/beranda')->with('success', 'komentar berhasil ditambahkan');
+        // Testimoni::create($validateData);
+        // return redirect('/beranda')->with('success', 'komentar berhasil ditambahkan');
     }
 
     /**
