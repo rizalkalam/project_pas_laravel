@@ -8,6 +8,7 @@ use App\Http\Controllers\SendNotifController;
 use App\Http\Controllers\client\AuthController;
 use App\Http\Controllers\client\CartController;
 use App\Http\Controllers\client\ProductController;
+use App\Http\Controllers\client\ProfileController;
 use App\Http\Controllers\API\UserDeviceAPIController;
 
 /*
@@ -37,6 +38,10 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/user', function (Request $request){
         return $request->user();
     });
+
+    // route untuk edit profile
+    Route::post('/edit/password',[ProfileController::class,'verifpassword']);
+    Route::post('/edit/email',[ProfileController::class,'verifemail']);
 
     // route untuk keranjang
     Route::get('/keranjang',[CartController::class,'index']);

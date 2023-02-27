@@ -100,15 +100,15 @@ class ProfileController extends Controller
 
     public function uppassword(Request $request)
     {
-        $validateData = $request->validate([
-            'password'=>'required|min:5|max:255',
-            'updated_at' => now()
-        ]);
+            $validateData = $request->validate([
+                'password'=>'required|min:5|max:255',
+                'updated_at' => now()
+            ]);
 
-          $validateData['password'] = Hash::make($validateData['password']);
+            $validateData['password'] = Hash::make($validateData['password']);
 
-          User::where('id', auth()->user()->id)->update($validateData);
-          $request->session()->flash('Success', 'Password berhasil diubah');
+            User::where('id', auth()->user()->id)->update($validateData);
+            $request->session()->flash('Success', 'Password berhasil diubah');
           
           return redirect('/profile/me');
     }
