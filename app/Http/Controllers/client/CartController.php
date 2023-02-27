@@ -22,6 +22,7 @@ class CartController extends Controller
                     'barang_id'=>$cart->barang_id,
                     'username'=>$cart->username,
                     'nama_barang'=>$cart->nama_barang,
+                    'gambar_barang'=>$cart->barang->gambar_barang,
                     'harga'=>$cart->harga,
                     'jumlah'=>$cart->jumlah,
                     'total_harga'=>$cart->total_harga
@@ -52,6 +53,7 @@ class CartController extends Controller
                 'barang_id'=> 'required|max:255',
                 'username'=> 'required',  
                 'nama_barang'=> 'required',
+                'gambar_barang'=> 'required',
                 'harga'=> 'required',
                 'jumlah'=> 'required',
                 'total_harga'=> 'required'
@@ -62,6 +64,7 @@ class CartController extends Controller
                 'barang_id'=> $request->barang_id,
                 'username'=> auth()->user()->username,  
                 'nama_barang'=> $request->nama_barang,
+                'gambar_barang'=> $request->gambar_barang,
                 'harga'=> $request->harga,
                 'jumlah'=> $request->jumlah,
                 'total_harga'=> $request->total_harga

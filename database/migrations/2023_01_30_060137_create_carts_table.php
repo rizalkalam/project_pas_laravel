@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('barang_id');
             $table->string('username');
             $table->string('nama_barang');
+            $table->string('gambar_barang')->nullable();
             $table->double('harga');
             $table->integer('jumlah');
             $table->double('total_harga');
