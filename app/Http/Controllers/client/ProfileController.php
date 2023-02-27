@@ -10,6 +10,36 @@ use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
+    public function update(Request $request)
+    {
+       $validateData = $request->validate([
+            'username'=>['required', 'min:3', 'max:255', 'unique:users'],
+            'alamat'=>'required',
+            'no_hp'=>'required',
+            'photo_profiles'=>'image|file|max:9024',
+            'updated_at' => now()
+        ]);
+
+        if ($request->file('photo_profiles')) {
+            $request->file('photo_profiles')->move('images/', $request->file('photo_profiles')->getClientOriginalName());
+            $validateData['photo_profiles'] =  $request->file('photo_profiles')->getClientOriginalName();
+        }
+
+        try {
+            $data = User::where('id', auth()->user()->id)->update($validateData); 
+                 return response()->json([
+                     'message' => 'data changed successfully',
+                     'data' => $request->validated()
+                 ],200);
+         } catch (\Throwable $th) {
+             //throw $th;
+             return response()->json([
+                 'message' => 'failed',
+                 'errors' => $th->getMessage()
+             ]);
+         }
+    }
+
     public function verifemail(Request $request)
     {
         $validator = Validator::make(request()->all(), [
@@ -30,7 +60,7 @@ class ProfileController extends Controller
             ]); 
                 return response()->json([
                     'message' => 'email changed successfully',
-                    // 'data' => $validator
+                    'data' => $validator->validated()
                 ],200);
         } catch (\Throwable $th) {
             //throw $th;

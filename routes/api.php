@@ -40,6 +40,7 @@ Route::middleware('auth:sanctum')->group(function(){
     });
 
     // route untuk edit profile
+    Route::post('/edit/profile',[ProfileController::class,'update']);
     Route::post('/edit/password',[ProfileController::class,'verifpassword']);
     Route::post('/edit/email',[ProfileController::class,'verifemail']);
 
