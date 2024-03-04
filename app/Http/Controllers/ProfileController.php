@@ -34,11 +34,9 @@ class ProfileController extends Controller
     public function update(Request $request, User $user)
     {
         $validateData = $request->validate([
-            'username'=>['required', 'min:3', 'max:255', 'unique:users'],
-            'email'=>'required|email:dns',
-            'password'=>'required|min:5|max:255',
-            'alamat'=>'required',
-            'no_hp'=>'required',
+            'username'=>[ 'min:3', 'max:255', 'unique:users'],
+            'email'=>'email:dns',
+            'password'=>'min:5|max:255',
             'photo_profiles'=>'image|file|max:9024',
             'updated_at' => now()
         ]);
